@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MovieListTests //extends TestCase
+public class MovieListTest //extends TestCase
 {
     private MovieList movieList;
     private Movie starWars;
@@ -58,6 +58,6 @@ public class MovieListTests //extends TestCase
 
 /*
     public static void main(String[] args){
-        TestRunner.run(MovieListTests.class);
+        TestRunner.run(MovieListTest.class);
     }*/
 }

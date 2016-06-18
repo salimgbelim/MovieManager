@@ -6,7 +6,7 @@ before_install:
 script:
   -  mvn clean
   -  mvn compile
-  -  mvn test
+  -  mvn test jacoco:report org.pitest:pitest-maven:mutationCoverage
 
 after_success:
-- mvn org.pitest:pitest-maven:mutationCoverage
+  - mvn coveralls:report

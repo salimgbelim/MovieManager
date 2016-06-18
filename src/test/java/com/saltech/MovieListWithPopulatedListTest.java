@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MovieListWithPopulatedListTests {
+public class MovieListWithPopulatedListTest {
 
     private MovieList movieList;
     private Movie starWars;

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MovieTests {
+public class MovieTest {
 
     @Test
     public void should_return_movie_name() {
