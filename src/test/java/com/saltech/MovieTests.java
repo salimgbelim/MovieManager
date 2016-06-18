@@ -83,4 +83,44 @@ public class MovieTests {
         movie.rename("");
 
     }
+
+    @Test
+    public void should_return_false_if_unrated(){
+
+        // Arrange
+        Movie movie = new Movie("Star Wars");
+
+        // Assert
+        assertThat(movie.hasRating()).isFalse();
+    }
+
+    @Test
+    public void should_return_true_if_movie_is_rated(){
+
+        // Act
+        Movie movie = new Movie("Star Wars", 5);
+
+        // Assert
+        assertThat(movie.hasRating()).isTrue();
+    }
+
+    @Test
+    public void should_return_return_the_ratings(){
+
+        // Act
+        Movie movie = new Movie("Star Wars", 5);
+
+        // Assert
+        assertThat(movie.getRating()).isEqualTo(5);
+    }
+
+    @Test(expected = UnRatedException.class)
+    public void should_return_UnRatedException_when_movie_is_not_rated(){
+
+        // Assert
+        Movie movie = new Movie("Star Wars");
+
+        // Act
+        movie.getRating();
+    }
 }
