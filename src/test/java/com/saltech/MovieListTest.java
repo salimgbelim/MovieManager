@@ -4,16 +4,10 @@ import com.saltech.builders.MovieBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 public class MovieListTest {
     private MovieList movieList;

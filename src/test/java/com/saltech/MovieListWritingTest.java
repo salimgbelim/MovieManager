@@ -3,8 +3,6 @@ package com.saltech;
 import com.saltech.builders.MovieBuilder;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 

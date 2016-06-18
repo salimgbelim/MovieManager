@@ -1,6 +1,8 @@
 package com.saltech;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.StringTokenizer;
 
 public class Movie {
@@ -71,11 +73,12 @@ public class Movie {
 
 
     }
+
     public static Movie readFrom(BufferedReader reader) throws IOException {
 
         String movieLine = reader.readLine();
 
-        if(movieLine == null) {
+        if (movieLine == null) {
             return null;
         }
 

@@ -9,24 +9,24 @@ public class MovieBuilder {
     private Integer rating;
     private String name;
 
-    public MovieBuilder withName(String name){
+    public MovieBuilder withName(String name) {
         this.name = name;
         return this;
     }
 
-    public MovieBuilder withRating(Integer rating){
+    public MovieBuilder withRating(Integer rating) {
         this.rating = rating;
         return this;
     }
 
-    public MovieBuilder withCategory(Category category){
+    public MovieBuilder withCategory(Category category) {
         this.category = category;
         return this;
     }
 
-    public Movie build(){
+    public Movie build() {
 
-        Movie movie = new Movie(name,rating,category);
+        Movie movie = new Movie(name, rating, category);
 
         return movie;
     }
