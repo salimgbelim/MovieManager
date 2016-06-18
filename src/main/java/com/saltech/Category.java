@@ -3,7 +3,7 @@ package com.saltech;
 public enum Category {
     UNCATEGORISED("UnCategorised"),
     SCIFI("Science Fiction"),
-    HORROR("Horror");
+    HORROR("Horror"), FANTASY("Fantasy"), THRILLER("Thriller"), ALL("All");
 
     private final String name;
 

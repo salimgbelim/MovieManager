@@ -2,10 +2,11 @@ package com.saltech;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MovieList {
 
-    private List<Movie> movies = new ArrayList<Movie>();
+    private List<Movie> movies = new ArrayList<>();
 
     public int size() {
         return movies.size();
@@ -19,6 +20,10 @@ public class MovieList {
         movies.add(movie);
     }
 
+    public List<Movie> getMovies(){
+        return movies;
+    }
+
     public boolean contains(Movie movie) {
         return movies.contains(movie);
     }
@@ -30,5 +35,33 @@ public class MovieList {
         }
 
         movie.rename(newName);
+    }
+
+    public List<Movie> categorySubList(Category category) {
+
+        if(Category.ALL.equals(category)) {
+            return movies;
+        }
+
+        return movies.stream()
+                .filter(movie -> movie.getCategory().equals(category))
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MovieList movieList = (MovieList) o;
+
+        return movies != null ? movies.equals(movieList.movies) : movieList.movies == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return movies != null ? movies.hashCode() : 0;
     }
 }
