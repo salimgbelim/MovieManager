@@ -7,3 +7,4 @@ bin
 .idea/
 target
 *.iml
+movieList.txt

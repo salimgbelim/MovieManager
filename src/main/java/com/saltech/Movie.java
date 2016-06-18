@@ -1,5 +1,9 @@
 package com.saltech;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+
 public class Movie {
 
     private Category category = Category.UNCATEGORISED;
@@ -51,6 +55,23 @@ public class Movie {
         return category;
     }
 
+    public void writeTo(Writer destination, Movie movie) throws IOException {
+
+        destination.write(movie.getName());
+        destination.write(" | ");
+        destination.write(movie.getCategory().getName().toString());
+        destination.write(" | ");
+
+        try {
+            destination.write(movie.getRating().toString());
+        } catch (UnRatedException ex) {
+            destination.write("-1");
+        }
+
+        destination.write(" |\n");
+
+
+    }
     @Override
     public String toString() {
         return "Movie{" +

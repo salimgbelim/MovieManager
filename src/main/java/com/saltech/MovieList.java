@@ -1,5 +1,8 @@
 package com.saltech;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +23,7 @@ public class MovieList {
         movies.add(movie);
     }
 
-    public List<Movie> getMovies(){
+    public List<Movie> getMovies() {
         return movies;
     }
 
@@ -39,7 +42,7 @@ public class MovieList {
 
     public List<Movie> categorySubList(Category category) {
 
-        if(Category.ALL.equals(category)) {
+        if (Category.ALL.equals(category)) {
             return movies;
         }
 
@@ -48,6 +51,18 @@ public class MovieList {
                 .collect(Collectors.toList());
 
     }
+
+    public void writeTo(Writer destination) throws IOException {
+
+        if (size() > 0) {
+
+            for (Movie movieToWrite : movies) {
+                movieToWrite.writeTo(destination, movieToWrite);
+                destination.flush();
+            }
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {

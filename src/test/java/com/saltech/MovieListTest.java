@@ -4,13 +4,16 @@ import com.saltech.builders.MovieBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MovieListTest //extends TestCase
-{
+public class MovieListTest {
     private MovieList movieList;
     private Movie starWars;
     private Movie starTrek;
@@ -28,6 +31,12 @@ public class MovieListTest //extends TestCase
         movieList = new MovieList();
 
         starWars = new MovieBuilder().withName("Star Wars").withCategory(Category.SCIFI).withRating(5).build();
+        starTrek = new MovieBuilder().withName("Star Trek").withCategory(Category.SCIFI).withRating(3).build();
+
+        starGate = new MovieBuilder().withName("Star Gate").withCategory(Category.SCIFI).withRating(-1).build();
+        theShining = new MovieBuilder().withName("The Shining").withCategory(Category.HORROR).withRating(2).build();
+        carrie = new MovieBuilder().withName("Carrie").withCategory(Category.HORROR).withRating(3).build();
+        fotr = new MovieBuilder().withName("The Fellowship of the Ring").withCategory(Category.FANTASY).withRating(5).build();
         starTrek = new MovieBuilder().withName("Star Trek").withCategory(Category.SCIFI).withRating(3).build();
 
         starGate = new MovieBuilder().withName("Star Gate").withCategory(Category.SCIFI).withRating(-1).build();
@@ -118,5 +127,95 @@ public class MovieListTest //extends TestCase
 
         // Assert
         assertThat(moviesFilteredByCategory).isEqualTo(movieList.getMovies());
+    }
+
+    @Test
+    public void should_write_empty_file() throws IOException {
+
+        // Arrange
+        StringWriter destination = new StringWriter();
+
+        // Act
+        movieList.writeTo(destination);
+
+        // Assert
+        assertThat(destination.toString()).isEqualTo("");
+    }
+
+    @Test
+    public void should_write_one_movie_to_file() throws IOException {
+
+        // Arrange
+        StringWriter destination = new StringWriter();
+
+        MovieList movieList = new MovieList();
+        movieList.add(new MovieBuilder().withName("Star Wars").withCategory(Category.SCIFI).withRating(4).build());
+
+        // Act
+        movieList.writeTo(destination);
+
+        //Assert
+        assertThat(destination.toString()).isEqualTo("Star Wars | Science Fiction | 4 |\n");
+    }
+
+    @Test
+    public void should_write_one_movie_to_file_which_is_unrated() throws IOException {
+
+        // Arrange
+        StringWriter destination = new StringWriter();
+
+        MovieList movieList = new MovieList();
+        movieList.add(new MovieBuilder().withName("Star Wars").withCategory(Category.SCIFI).build());
+
+        // Act
+        movieList.writeTo(destination);
+
+        //Assert
+        assertThat(destination.toString()).isEqualTo("Star Wars | Science Fiction | -1 |\n");
+    }
+
+    @Test
+    public void should_write_multiple_movie_to_file() throws IOException {
+
+        // Arrange
+        String expected = "Star Trek | Science Fiction | 3 |\n" +
+                "The Shining | Horror | 2 |\n" +
+                "The Fellowship of the Ring | Fantasy | 5 |\n";
+
+        StringWriter destination = new StringWriter();
+
+        MovieList movieList = new MovieList();
+        movieList.add(new MovieBuilder().withName("Star Trek").withCategory(Category.SCIFI).withRating(3).build());
+        movieList.add(new MovieBuilder().withName("The Shining").withCategory(Category.HORROR).withRating(2).build());
+        movieList.add(new MovieBuilder().withName("The Fellowship of the Ring").withCategory(Category.FANTASY).withRating(5).build());
+
+        // Act
+        movieList.writeTo(destination);
+
+        //Assert
+        assertThat(destination.toString()).isEqualTo(expected);
+    }
+
+    @Test
+    public void should_write_to_file_and_read_from_file() throws IOException {
+
+        // Arrange
+        String expected = "Star Trek | Science Fiction | 3 |\n" +
+                "The Shining | Horror | 2 |\n" +
+                "The Fellowship of the Ring | Fantasy | 5 |\n";
+
+        File file= new File(String.valueOf("movieList.txt"));
+        FileWriter destination = new FileWriter(file);
+
+        MovieList movieList = new MovieList();
+        movieList.add(new MovieBuilder().withName("Star Trek").withCategory(Category.SCIFI).withRating(3).build());
+        movieList.add(new MovieBuilder().withName("The Shining").withCategory(Category.HORROR).withRating(2).build());
+        movieList.add(new MovieBuilder().withName("The Fellowship of the Ring").withCategory(Category.FANTASY).withRating(5).build());
+
+        // Act
+        movieList.writeTo(destination);
+
+        //Assert
+     //   assertThat(destination..toString()).isEqualTo(expected);
     }
 }
