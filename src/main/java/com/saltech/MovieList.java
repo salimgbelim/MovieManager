@@ -1,7 +1,6 @@
 package com.saltech;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +53,13 @@ public class MovieList {
 
     public void writeTo(Writer destination) throws IOException {
 
-        if (size() > 0) {
+        if (size() <= 0) {
+            throw new NoMovieFoundException("No Movies Found");
+        }
 
-            for (Movie movieToWrite : movies) {
-                movieToWrite.writeTo(destination, movieToWrite);
-                destination.flush();
-            }
+        for (Movie movieToWrite : movies) {
+            movieToWrite.writeTo(destination, movieToWrite);
+            destination.flush();
         }
     }
 

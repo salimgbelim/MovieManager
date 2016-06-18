@@ -129,7 +129,7 @@ public class MovieListTest {
         assertThat(moviesFilteredByCategory).isEqualTo(movieList.getMovies());
     }
 
-    @Test
+    @Test(expected = NoMovieFoundException.class)
     public void should_write_empty_file() throws IOException {
 
         // Arrange
@@ -139,7 +139,6 @@ public class MovieListTest {
         movieList.writeTo(destination);
 
         // Assert
-        assertThat(destination.toString()).isEqualTo("");
     }
 
     @Test
@@ -172,6 +171,21 @@ public class MovieListTest {
 
         //Assert
         assertThat(destination.toString()).isEqualTo("Star Wars | Science Fiction | -1 |\n");
+    }
+
+    @Test(expected = NoMovieFoundException.class)
+    public void should_not_write_to_file_if_no_movies() throws IOException {
+
+        // Arrange
+        StringWriter destination = new StringWriter();
+
+        MovieList movieList = new MovieList();
+
+        // Act
+        movieList.writeTo(destination);
+
+        //Assert
+
     }
 
     @Test
