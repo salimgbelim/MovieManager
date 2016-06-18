@@ -9,4 +9,4 @@ script:
   -  mvn test jacoco:report org.pitest:pitest-maven:mutationCoverage
 
 after_success:
-  - mvn coveralls:report
+  - mvn coveralls:report coveralls:report
