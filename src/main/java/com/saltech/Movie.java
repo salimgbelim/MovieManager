@@ -2,16 +2,16 @@ package com.saltech;
 
 public class Movie {
 
-    private String category = null;
+    private Category category = Category.UNCATEGORISED;
     private Integer rating = -1;
     private String name;
 
-    public Movie(String name, Integer rating, String category) {
+    public Movie(String name, Integer rating, Category category) {
         nullName(name);
         emptyName(name);
         this.name = name;
         this.rating = rating == null ? -1 : rating;
-        this.category = (category == null) ? "UnCategorised" : category;
+        this.category = (category == null) ? Category.UNCATEGORISED : category;
     }
 
     private void nullName(String name) {
@@ -47,7 +47,7 @@ public class Movie {
         return rating;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 

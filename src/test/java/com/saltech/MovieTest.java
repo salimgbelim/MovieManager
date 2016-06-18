@@ -131,20 +131,18 @@ public class MovieTest {
         Movie movie = new Movie("Star Wars", null, null);
 
         // Assert
-        assertThat(movie.getCategory()).isEqualTo("UnCategorised");
+        assertThat(movie.getCategory()).isEqualTo(Category.UNCATEGORISED);
 
     }
 
     @Test
     public void should_return_the_movie_category_when_asked() {
 
-        // Arrange
-        String categoryName = "Science Fiction";
-
         // Act
-        Movie movie = new Movie("Star Wars", null, categoryName);
+        Movie movie = new Movie("Star Wars", null, Category.SCIFI);
 
         // Assert
-        assertThat(movie.getCategory()).isEqualTo(categoryName);
+        assertThat(movie.getCategory()).isEqualTo(Category.SCIFI);
     }
+
 }
