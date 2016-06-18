@@ -12,6 +12,8 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class MovieListTest {
     private MovieList movieList;
@@ -169,8 +171,26 @@ public class MovieListTest {
         // Act
         movieList.writeTo(destination);
 
+
         //Assert
         assertThat(destination.toString()).isEqualTo("Star Wars | Science Fiction | -1 |\n");
+    }
+
+    @Test
+    public void should_call_flush() throws IOException {
+
+        // Arrange
+        StringWriter destination = mock(StringWriter.class);
+
+        MovieList movieList = new MovieList();
+        movieList.add(new MovieBuilder().withName("Star Wars").withCategory(Category.SCIFI).build());
+
+        // Act
+        movieList.writeTo(destination);
+
+
+        //Assert
+        verify(destination).flush();
     }
 
     @Test(expected = NoMovieFoundException.class)
