@@ -1,8 +1,7 @@
 package com.saltech;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
+import java.util.StringTokenizer;
 
 public class Movie {
 
@@ -72,13 +71,32 @@ public class Movie {
 
 
     }
+    public static Movie readFrom(BufferedReader reader) throws IOException {
+
+        String movieLine = reader.readLine();
+
+        if(movieLine == null) {
+            return null;
+        }
+
+        StringTokenizer tokenizedLine = new StringTokenizer(movieLine, "|");
+
+        String movieName = tokenizedLine.nextToken();
+        Category category = Category.fromString(tokenizedLine.nextToken().trim());
+        Integer rating = Integer.valueOf(tokenizedLine.nextToken().trim());
+
+        Movie movie = new Movie(movieName, rating, category);
+
+        return movie;
+    }
+
+
     @Override
     public String toString() {
         return "Movie{" +
                 "name='" + name + '\'' +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

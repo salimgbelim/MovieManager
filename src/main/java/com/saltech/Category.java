@@ -14,4 +14,15 @@ public enum Category {
     public String getName() {
         return name;
     }
+
+    public static Category fromString(String text) {
+        if (text != null) {
+            for (Category b : Category.values()) {
+                if (text.equalsIgnoreCase(b.getName())) {
+                    return b;
+                }
+            }
+        }
+        return null;
+    }
 }

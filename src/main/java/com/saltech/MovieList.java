@@ -1,6 +1,8 @@
 package com.saltech;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,21 @@ public class MovieList {
         }
     }
 
+
+    public static MovieList readFrom(Reader reader) throws IOException {
+
+        MovieList movieList = new MovieList();
+
+        BufferedReader bufferedReader = new BufferedReader(reader);
+
+        for (Movie newMovie = Movie.readFrom(bufferedReader); newMovie != null; newMovie = Movie.readFrom(bufferedReader)) {
+            if (newMovie != null) {
+                movieList.add(newMovie);
+            }
+        }
+
+        return movieList;
+    }
 
     @Override
     public boolean equals(Object o) {
