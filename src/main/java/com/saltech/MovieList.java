@@ -12,10 +12,23 @@ public class MovieList {
     }
 
     public void add(Movie movie) {
+
+        if (this.contains(movie)) {
+            throw new DuplicateMovieException(movie.getName());
+        }
         movies.add(movie);
     }
 
     public boolean contains(Movie movie) {
         return movies.contains(movie);
+    }
+
+    public void rename(Movie movie, String newName) {
+
+     if (this.contains(new Movie(newName))){
+         throw new DuplicateMovieException(newName);
+     }
+
+        movie.rename(newName);
     }
 }

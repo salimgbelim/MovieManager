@@ -35,4 +35,52 @@ public class MovieTests {
         //Assert
         assertThat(movie1).isEqualTo(movie2);
     }
+
+    @Test
+    public void should_rename_the_movie() {
+
+        // Arrange
+        String newName = "Star Trek";
+        Movie movie = new Movie("Star Wars");
+
+        // Act
+        movie.rename(newName);
+
+        // Assert
+        assertThat(movie.getName()).isEqualTo(newName);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_not_allow_to_create_movie_with_null_name() {
+
+        // Act
+        new Movie(null);
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_not_allow_to_create_movie_with_empty_name() {
+
+        // Act
+        new Movie("");
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_not_allow_to_rename_a_movie_with_null_name() {
+
+        // Act
+        Movie movie = new Movie("Star Wars");
+        movie.rename(null);
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_not_allow_to_rename_a_movie_with_empty_name() {
+
+        // Act
+        Movie movie = new Movie("Star Wars");
+        movie.rename("");
+
+    }
 }
