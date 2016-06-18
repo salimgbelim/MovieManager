@@ -1,5 +1,6 @@
 package com.saltech;
 
+import com.saltech.builders.MovieBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,16 +27,16 @@ public class MovieListTest //extends TestCase
 
         movieList = new MovieList();
 
-        starWars = new Movie("Star Wars", 5, Category.SCIFI);
-        starTrek = new Movie("Star Trek", 3 , Category.SCIFI);
+        starWars = new MovieBuilder().withName("Star Wars").withCategory(Category.SCIFI).withRating(5).build();
+        starTrek = new MovieBuilder().withName("Star Trek").withCategory(Category.SCIFI).withRating(3).build();
 
-        starGate = new Movie("Star Gate", -1, Category.SCIFI);
-        theShining = new Movie("The Shining", 2, Category.HORROR);
-        carrie = new Movie("Carrie", 3, Category.HORROR);
-        fotr = new Movie("The Fellowship of the Ring", 5, Category.FANTASY);
-        redOctober = new Movie("The Hunt for Red October", 3, Category.THRILLER);
-        congo = new Movie("Congo", 3, Category.THRILLER);
-        princessBride = new Movie("The Princess Bride", 5, Category.FANTASY);
+        starGate = new MovieBuilder().withName("Star Gate").withCategory(Category.SCIFI).withRating(-1).build();
+        theShining = new MovieBuilder().withName("The Shining").withCategory(Category.HORROR).withRating(2).build();
+        carrie = new MovieBuilder().withName("Carrie").withCategory(Category.HORROR).withRating(3).build();
+        fotr = new MovieBuilder().withName("The Fellowship of the Ring").withCategory(Category.FANTASY).withRating(5).build();
+        redOctober = new MovieBuilder().withName("The Hunt for Red October").withCategory(Category.THRILLER).withRating(3).build();
+        congo = new MovieBuilder().withName("Congo").withCategory(Category.THRILLER).withRating(3).build();
+        princessBride = new MovieBuilder().withName("The Princess Bride").withCategory(Category.FANTASY).withRating(5).build();
     }
 
     @Test
@@ -76,7 +77,7 @@ public class MovieListTest //extends TestCase
     }
 
     @Test
-    public void should_return_requested_subset_movie_list(){
+    public void should_return_requested_subset_movie_list() {
 
         // Arrange
         movieList.add(starWars);
@@ -99,7 +100,7 @@ public class MovieListTest //extends TestCase
     }
 
     @Test
-    public void should_return_all_movies_when_filtered_by_category_ALL(){
+    public void should_return_all_movies_when_filtered_by_category_ALL() {
 
         // Arrange
         movieList.add(starWars);
