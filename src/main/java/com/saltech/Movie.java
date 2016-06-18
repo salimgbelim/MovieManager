@@ -1,21 +1,17 @@
 package com.saltech;
 
-import java.security.UnrecoverableEntryException;
-
 public class Movie {
 
+    private String category = null;
     private Integer rating = -1;
     private String name;
 
-    public Movie(String name) {
+    public Movie(String name, Integer rating, String category) {
         nullName(name);
         emptyName(name);
         this.name = name;
-    }
-
-    public Movie(String name, Integer rating){
-        this(name);
-        this.rating = rating;
+        this.rating = rating == null ? -1 : rating;
+        this.category = (category == null) ? "UnCategorised" : category;
     }
 
     private void nullName(String name) {
@@ -45,10 +41,14 @@ public class Movie {
     }
 
     public Integer getRating() {
-        if(hasRating() == false){
+        if (hasRating() == false) {
             throw new UnRatedException("Movie" + name + " is not rated");
         }
         return rating;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     @Override
@@ -58,6 +58,7 @@ public class Movie {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,11 +66,17 @@ public class Movie {
 
         Movie movie = (Movie) o;
 
+        if (category != null ? !category.equals(movie.category) : movie.category != null) return false;
+        if (rating != null ? !rating.equals(movie.rating) : movie.rating != null) return false;
         return name != null ? name.equals(movie.name) : movie.name == null;
+
     }
 
     @Override
     public int hashCode() {
-        return name != null ? name.hashCode() : 0;
+        int result = category != null ? category.hashCode() : 0;
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

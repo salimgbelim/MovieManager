@@ -25,9 +25,9 @@ public class MovieList {
 
     public void rename(Movie movie, String newName) {
 
-     if (this.contains(new Movie(newName))){
-         throw new DuplicateMovieException(newName);
-     }
+        if (this.contains(new Movie(newName, null, null))) {
+            throw new DuplicateMovieException(newName);
+        }
 
         movie.rename(newName);
     }

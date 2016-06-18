@@ -15,8 +15,8 @@ public class MovieListTest //extends TestCase
     public void SetUp() {
 
         movieList = new MovieList();
-        starWars = new Movie("Star Wars");
-        starTrek = new Movie("Star Trek");
+        starWars = new Movie("Star Wars", null, null);
+        starTrek = new Movie("Star Trek", null, null);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class MovieListTest //extends TestCase
     }
 
     @Test
-    public void should_contain_movie_that_is_added(){
+    public void should_contain_movie_that_is_added() {
         // Arrange
         movieList.add(starWars);
         movieList.add(starTrek);

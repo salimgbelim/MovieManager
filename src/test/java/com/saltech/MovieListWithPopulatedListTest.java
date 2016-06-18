@@ -15,9 +15,9 @@ public class MovieListWithPopulatedListTest {
     @Before
     public void SetUp() throws DuplicateMovieException {
 
-        starWars = new Movie("Star Wars");
-        starTrek = new Movie("Star Trek");
-        starGate = new Movie("Star Gate");
+        starWars = new Movie("Star Wars", null, null);
+        starTrek = new Movie("Star Trek", null, null);
+        starGate = new Movie("Star Gate", null, null);
 
         movieList = new MovieList();
         movieList.add(starWars);
@@ -32,14 +32,14 @@ public class MovieListWithPopulatedListTest {
         movieList.add(starTrek);
         movieList.add(starWars);
 
-        movieList.add(new Movie(starTrek.getName()));
+        movieList.add(new Movie(starTrek.getName(), starTrek.getRating(), starTrek.getCategory()));
 
         assertThat(movieList.size()).isEqualTo(2);
 
     }
 
     @Test
-    public void should_rename_a_movie(){
+    public void should_rename_a_movie() {
 
         // Arrange
         String newName = "StartTrek I";
@@ -52,7 +52,7 @@ public class MovieListWithPopulatedListTest {
     }
 
     @Test(expected = DuplicateMovieException.class)
-    public void should_not_rename_a_movie_to_an_existing_name(){
+    public void should_not_rename_a_movie_to_an_existing_name() {
 
         // Act
         movieList.rename(starTrek, "Star Wars");
