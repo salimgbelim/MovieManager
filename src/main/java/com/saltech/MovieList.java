@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,6 +67,18 @@ public class MovieList {
         }
     }
 
+    public void sortUsing(Comparator<Movie> movieComparator) {
+        Collections.sort(movies, movieComparator);
+    }
+
+    public void sortUsingV1() {
+
+        Comparator<Movie> ratingComparator = (Movie m1, Movie m2) -> m2.getRawRating().compareTo(m1.getRawRating());
+        Comparator<Movie> nameComparator = (Movie m1, Movie m2) -> m1.getName().compareTo(m2.getName());
+
+        movies.sort(ratingComparator.thenComparing(nameComparator));
+
+    }
 
     public static MovieList readFrom(Reader reader) throws IOException {
 

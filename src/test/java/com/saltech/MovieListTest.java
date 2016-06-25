@@ -4,6 +4,7 @@ import com.saltech.builders.MovieBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -125,4 +126,170 @@ public class MovieListTest {
         assertThat(moviesFilteredByCategory).isEqualTo(movieList.getMovies());
     }
 
+    @Test
+    public void should_have_not_affect_if_sorting_an_empty_list() {
+
+        // Act
+        MovieList emptyList = new MovieList();
+        MovieNameComparator nameComparator = new MovieNameComparator();
+        emptyList.sortUsing(nameComparator);
+
+        // Assert
+        assertThat(emptyList.size()).isZero();
+    }
+
+    @Test
+    public void should_have_no_affect_when_sorting_a_sorted_list() {
+
+        List<Movie> expectedMovieList = new ArrayList<>();
+        expectedMovieList.add(new MovieBuilder().withName("A").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("B").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("C").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("D").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("E").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("F").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("G").withCategory(Category.SCIFI).withRating(5).build());
+
+        MovieList movieList = new MovieList();
+        expectedMovieList.forEach(movieList::add);
+
+        // Act
+        movieList.sortUsing(new MovieNameComparator());
+
+        // Assert
+        assertThat(movieList.size()).isEqualTo(expectedMovieList.size());
+
+        Integer count = 0;
+        for (Movie actualMovie : movieList.getMovies()) {
+            assertThat(actualMovie).isEqualTo(expectedMovieList.get(count));
+            count = count + 1;
+        }
+
+    }
+
+    @Test
+    public void should_sort_by_movie_name() {
+
+        List<Movie> expectedMovieList = new ArrayList<>();
+        expectedMovieList.add(new MovieBuilder().withName("G").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("F").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("E").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("D").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("C").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("B").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("A").withCategory(Category.SCIFI).withRating(5).build());
+
+        MovieList movieList = new MovieList();
+        expectedMovieList.forEach(movieList::add);
+
+        // Act
+        movieList.sortUsing(new MovieNameComparator());
+
+        // Assert
+        assertThat(movieList.size()).isEqualTo(expectedMovieList.size());
+
+        Integer count = movieList.size() - 1;
+        for (Movie actualMovie : movieList.getMovies()) {
+            assertThat(actualMovie).isEqualTo(expectedMovieList.get(count));
+            count = count - 1;
+        }
+
+    }
+
+    @Test
+    public void should_have_no_affect_when_sorting_a_sorted_list_by_rating() {
+
+        List<Movie> expectedMovieList = new ArrayList<>();
+        expectedMovieList.add(new MovieBuilder().withName("A").withCategory(Category.SCIFI).withRating(1).build());
+        expectedMovieList.add(new MovieBuilder().withName("B").withCategory(Category.SCIFI).withRating(2).build());
+        expectedMovieList.add(new MovieBuilder().withName("C").withCategory(Category.SCIFI).withRating(3).build());
+        expectedMovieList.add(new MovieBuilder().withName("D").withCategory(Category.SCIFI).withRating(4).build());
+        expectedMovieList.add(new MovieBuilder().withName("E").withCategory(Category.SCIFI).withRating(5).build());
+        expectedMovieList.add(new MovieBuilder().withName("F").withCategory(Category.SCIFI).withRating(6).build());
+        expectedMovieList.add(new MovieBuilder().withName("G").withCategory(Category.SCIFI).withRating(7).build());
+
+        MovieList movieList = new MovieList();
+        expectedMovieList.forEach(movieList::add);
+
+        // Act
+        movieList.sortUsing(new MovieRatingComparator());
+
+        // Assert
+        assertThat(movieList.size()).isEqualTo(expectedMovieList.size());
+
+        Integer count = movieList.size() - 1;
+        for (Movie actualMovie : movieList.getMovies()) {
+            assertThat(actualMovie).isEqualTo(expectedMovieList.get(count));
+            count = count - 1;
+        }
+
+    }
+
+    @Test
+    public void should_sort_by_ratings_and_then_name(){
+
+        List<Movie> expectedMovieList = new ArrayList<>();
+        expectedMovieList.add(new MovieBuilder().withName("A").withCategory(Category.SCIFI).withRating(4).build());
+        expectedMovieList.add(new MovieBuilder().withName("B").withCategory(Category.SCIFI).withRating(6).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("CD").withCategory(Category.SCIFI).withRating(8).build());
+        expectedMovieList.add(new MovieBuilder().withName("CB").withCategory(Category.SCIFI).withRating(8).build());
+        expectedMovieList.add(new MovieBuilder().withName("CA").withCategory(Category.SCIFI).withRating(8).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("D").withCategory(Category.SCIFI).withRating(9).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("E").withCategory(Category.SCIFI).withRating(1).build());
+        expectedMovieList.add(new MovieBuilder().withName("Z").withCategory(Category.SCIFI).withRating(1).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("F").withCategory(Category.SCIFI).withRating(2).build());
+        expectedMovieList.add(new MovieBuilder().withName("Z").withCategory(Category.SCIFI).withRating(2).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("G").withCategory(Category.SCIFI).withRating(3).build());
+
+        MovieList movieList = new MovieList();
+        expectedMovieList.forEach(movieList::add);
+
+
+        movieList.sortUsing(new MovieRatingAndNameComparator());
+
+        assertThat(movieList.size()).isEqualTo(expectedMovieList.size());
+
+
+
+
+    }
+
+    @Test
+    public void should_sort_by_ratings_and_then_name_using_v1(){
+
+        List<Movie> expectedMovieList = new ArrayList<>();
+        expectedMovieList.add(new MovieBuilder().withName("A").withCategory(Category.SCIFI).withRating(4).build());
+        expectedMovieList.add(new MovieBuilder().withName("B").withCategory(Category.SCIFI).withRating(6).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("CD").withCategory(Category.SCIFI).withRating(8).build());
+        expectedMovieList.add(new MovieBuilder().withName("CB").withCategory(Category.SCIFI).withRating(8).build());
+        expectedMovieList.add(new MovieBuilder().withName("CA").withCategory(Category.SCIFI).withRating(8).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("D").withCategory(Category.SCIFI).withRating(9).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("E").withCategory(Category.SCIFI).withRating(1).build());
+        expectedMovieList.add(new MovieBuilder().withName("Z").withCategory(Category.SCIFI).withRating(1).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("F").withCategory(Category.SCIFI).withRating(2).build());
+        expectedMovieList.add(new MovieBuilder().withName("Z").withCategory(Category.SCIFI).withRating(2).build());
+
+        expectedMovieList.add(new MovieBuilder().withName("G").withCategory(Category.SCIFI).withRating(3).build());
+
+        MovieList movieList = new MovieList();
+        expectedMovieList.forEach(movieList::add);
+
+
+        movieList.sortUsingV1();
+
+        assertThat(movieList.size()).isEqualTo(expectedMovieList.size());
+
+
+
+
+    }
 }

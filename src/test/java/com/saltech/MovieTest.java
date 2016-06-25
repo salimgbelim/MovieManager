@@ -145,4 +145,93 @@ public class MovieTest {
         assertThat(movie.getCategory()).isEqualTo(Category.SCIFI);
     }
 
+    @Test
+    public void should_return_zero_if_movie_has_the_same_name() {
+
+        // Arrange
+        Movie starTrek = new Movie("Star Trek", 3, Category.SCIFI);
+        Movie anotherStarTrek = new Movie("Star Trek", 3, Category.SCIFI);
+
+        // Act
+        MovieNameComparator movieNameComparator = new MovieNameComparator();
+
+        // Assert
+        assertThat(movieNameComparator.compare(starTrek, anotherStarTrek)).isZero();
+    }
+
+
+    @Test
+    public void should_return_negative_answer_if_first_movie_have_lexically_smaller_name() {
+        // Arrange
+        Movie starTrek = new Movie("Star Trek", 3, Category.SCIFI);
+        Movie alien = new Movie("Alien", 5, Category.SCIFI);
+
+        // Act
+        // Act
+        MovieNameComparator movieNameComparator = new MovieNameComparator();
+
+        // Assert
+        assertThat(movieNameComparator.compare(alien, starTrek)).isNegative();
+
+    }
+
+    @Test
+    public void should_return_positive_answer_if_first_movie_have_lexically_greater_name() {
+        // Arrange
+        Movie starTrek = new Movie("Star Trek", 3, Category.SCIFI);
+        Movie starWars = new Movie("Star Wars", 5, Category.SCIFI);
+
+        // Act
+        // Act
+        MovieNameComparator movieNameComparator = new MovieNameComparator();
+
+        // Assert
+        assertThat(movieNameComparator.compare(starWars, starTrek)).isPositive();
+
+    }
+
+
+    @Test
+    public void should_return_zero_if_movie_has_the_same_ratings() {
+
+        // Arrange
+        Movie starTrek = new Movie("Star Trek", 3, Category.SCIFI);
+        Movie anotherStarTrek = new Movie("Star Trek", 3, Category.SCIFI);
+
+        // Act
+        MovieRatingComparator movieRatingComparator = new MovieRatingComparator();
+
+        // Assert
+        assertThat(movieRatingComparator.compare(starTrek, anotherStarTrek)).isZero();
+    }
+
+
+    @Test
+    public void should_return_negative_answer_if_first_movie_has_lower_rating_then_second() {
+        // Arrange
+        Movie starTrek = new Movie("Star Trek", 3, Category.SCIFI);
+        Movie alien = new Movie("Alien", 5, Category.SCIFI);
+
+        // Act
+        MovieRatingComparator movieRatingComparator = new MovieRatingComparator();
+
+        // Assert
+        assertThat(movieRatingComparator.compare(alien, starTrek)).isNegative();
+
+    }
+
+    @Test
+    public void should_return_positive_answer_if_first_movie_has_higher_rating_then_second() {
+        // Arrange
+        Movie starTrek = new Movie("Star Trek", 3, Category.SCIFI);
+        Movie starWars = new Movie("Star Wars", 1, Category.SCIFI);
+
+        // Act
+        MovieRatingComparator movieRatingComparator = new MovieRatingComparator();
+
+        // Assert
+        assertThat(movieRatingComparator.compare(starWars, starTrek)).isPositive();
+
+    }
+
 }

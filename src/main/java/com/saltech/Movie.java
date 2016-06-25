@@ -52,6 +52,13 @@ public class Movie {
         return rating;
     }
 
+    public Integer getRawRating() {
+        if (hasRating() == false) {
+            return  -1;
+        }
+        return rating;
+    }
+
     public Category getCategory() {
         return category;
     }
